@@ -18,5 +18,11 @@ module.exports = {
     db.getPosts().then(result => {
       res.status(200).send(result)
     })
+  },
+  readPosts: (req, res) => {
+  let db = req.app.get('db');
+  db.getAllPosts().then(result => {
+    res.status(200).send(result)
+  })
   }
 }

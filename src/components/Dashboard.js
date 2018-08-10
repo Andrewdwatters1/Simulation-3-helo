@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getPosts } from '../redux/reducer';
+import axios from 'axios'
 
 class Dashboard extends Component {
   constructor() {
@@ -21,18 +21,46 @@ class Dashboard extends Component {
   }
 
   searchPosts = () => {
-    this.props.getPosts(this.state.userposts, this.state.search)
+    let id = this.props.match.userId;
+    let { search, userposts } = this.state
+    axios.get(`/api/posts/`).then(result => {
+      console.log(result)
+      this.setState({
+        posts: [...this.state.posts, result.data]
+      })
+    })
+  }
+
+  resetSearch = () => {
+    let id = this.props.match.userId;
+    let { search, userposts } = this.state
+    axios.get(`/api/posts/:${id}?search=${search}&userposts=${userposts}`).then(result => {
+      this.setState({
+        posts: [...this.state.posts, result],
+        search: ''
+      })
+    })
+  }
+
+  componentDidMount() {
+    this.searchPosts()
   }
 
   render() {
     return (
       <div>
         <input onChange={this.searchChange}></input>
-        <input type="checkbox" checked="true"></input>
+        <input type="checkbox" defaultChecked="true"></input>
         <button onClick={this.searchPosts}>search posts</button>
       </div>
     )
   }
 }
 
-export default connect(null, { getPosts })(Dashboard)
+let mapStateToProps = state => {
+  return {
+    userId: state.id
+  }
+}
+
+export default connect(mapStateToProps)(Dashboard)

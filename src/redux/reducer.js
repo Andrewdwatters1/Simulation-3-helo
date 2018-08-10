@@ -15,8 +15,8 @@ export default function reducer(state = initialState, action) {
   switch (action.type) {
     case LOGIN_USER:
       return { ...state, username: action.payload.username, profilePicture: action.payload.profilePicture }
-    case GET_POSTS_FULFILLED:
-      return { ...state, title: action.payload.title, author: action.payload.author, profilePicture: action.payload.profilePicture}
+    // case GET_POSTS_FULFILLED:
+    //   return { ...state, title: action.payload.title, author: action.payload.author, profilePicture: action.payload.profilePicture}
     
     // case REGISTER_USER: 
     //   return { ...state, userInfo: action.payload}
@@ -26,7 +26,6 @@ export default function reducer(state = initialState, action) {
 }
 
 export function loginUser(userInfo) {
-  console.log(userInfo)
   return {
     type: LOGIN_USER,
     payload: {
@@ -36,12 +35,12 @@ export function loginUser(userInfo) {
   }
 }
 
-export function getPosts(userposts, search) {
-  return {
-    type: GET_POSTS,
-    payload: axios.get(`/api/posts`) // need title, author and profilePicture
-  }
-}
+// export function getPosts(userposts, search) {
+//   return {
+//     type: GET_POSTS,
+//     payload: axios.get(`/api/posts`) // need title, author and profilePicture
+//   }
+// }
 
 // export function registerUser(username, password) {
 //   return {

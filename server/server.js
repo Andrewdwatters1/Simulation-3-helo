@@ -32,7 +32,8 @@ app.get(`/api/currentUser`, (req, res) => {
     res.end()
   }
 })
-app.get(`/api/posts/:userid`, controller.read)
+app.get(`/api/posts/:id?search=search&userposts=userposts`, controller.read)
+app.get(`/api/posts/`, controller.readPosts)
 // DEFINE ENDPTS
 
 app.get('/*', function(req, res) { // production builds only
