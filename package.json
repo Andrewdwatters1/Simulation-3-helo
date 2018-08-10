@@ -26,5 +26,12 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:5007"
+  "proxy": "http://localhost:5007",
+  "nodemonCongig": {
+    "ext": "js.sql",
+    "ignore": [
+      "src/*",
+      "public/*"
+    ]
+  }
 }

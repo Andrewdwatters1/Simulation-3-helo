@@ -7,7 +7,7 @@ require('dotenv').config();
 
 const app = express();
 const port = process.env.SERVER_PORT;
-
+const controller = require('./controller')
 
 massive(process.env.CONNECTION_STRING).then(db => {
   app.set('db', db)
@@ -21,6 +21,15 @@ app.use(session({
   resave: false
 }))
 
+app.post(`/api/auth/register`, controller.registerUser)
+app.post(`/api/auth/login`, controller.loginUser)
+app.get(`/api/currentUser`, (req, res) => {
+  if(req.body.length) {
+    res.send(req.body[0])
+  } else {
+    res.end()
+  }
+})
 // DEFINE ENDPTS
 
 app.listen(port, () => {
