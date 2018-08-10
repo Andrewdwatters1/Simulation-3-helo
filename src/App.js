@@ -1,25 +1,19 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+
+// import logo from './logo.svg';
 import './App.css';
 import Nav from './components/Nav';
-import Auth from './components/Auth';
-import Dashboard from './components/Dashboard';
-import Form from './components/Form';
-import Post from './components/Post';
+import router from './routes.js'
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+  }
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <Nav/>
-        </header>
-        <p className="App-intro">
-          <Auth/>
-          <Dashboard/>
-          <Form/>
-          <Post/>
-        </p>
+          <Nav />
+          {router}
       </div>
     );
   }
