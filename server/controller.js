@@ -12,4 +12,11 @@ module.exports = {
       res.status(200).send(result)
     })
   },
+  read: (req, res) => {
+    let db = req.app.get('db');
+    console.log(req)
+    db.getPosts().then(result => {
+      res.status(200).send(result)
+    })
+  }
 }

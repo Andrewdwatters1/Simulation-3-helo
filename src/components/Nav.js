@@ -13,11 +13,9 @@ const Nav = function(props) {
     <Link to="/">Logout</Link>
   </div>
   )
-  console.log(props)
   return (
     <div>
       {whatIsRendered}
-      {console.log(props)}
     </div>
   )
 }

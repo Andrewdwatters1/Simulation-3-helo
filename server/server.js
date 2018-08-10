@@ -1,9 +1,9 @@
 const express = require('express');
 const session = require('express-session');
-const static = require('express-static');
 const bodyParser = require('body-parser');
 const massive = require('massive');
 require('dotenv').config();
+const path = require('path')
 
 const app = express();
 const port = process.env.SERVER_PORT;
@@ -20,6 +20,8 @@ app.use(session({
   saveUninitialized: false,
   resave: false
 }))
+app.use(express.static(`${__dirname}/../build`)) // typically production builds only
+
 
 app.post(`/api/auth/register`, controller.registerUser)
 app.post(`/api/auth/login`, controller.loginUser)
@@ -30,7 +32,16 @@ app.get(`/api/currentUser`, (req, res) => {
     res.end()
   }
 })
+app.get(`/api/posts/:userid`, controller.read)
 // DEFINE ENDPTS
+
+app.get('/*', function(req, res) { // production builds only
+  res.sendFile(path.join(__dirname, '../build/index.html'), function(err) {
+    if (err) {
+      res.status(500).send(err)
+    }
+  })
+})
 
 app.listen(port, () => {
   console.log('We are live baby! Port ==> ', port);
